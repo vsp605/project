@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        header {
+            background-color: #d9534f;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .legend div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend span {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .available { background-color: #d1d1d1; }
+        .booked { background-color: #4e4e4e; color: #fff; }
+        .ladies { background-color: #f76a6a; }
+        .concession { background-color: #f8d775; }
+
+        .slot-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .section-label {
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #d9534f;
+        }
+
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 50px); 
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .slot {
+            width: 50px;
+            height: 60px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .available { background-color: #e0e0e0; color: #000; }
+        .booked { background-color: #555; color: #fff; }
+        .ladies { background-color: #ff8080; color: #fff; }
+        .concession { background-color: #ffe680; color: #333; }
+
+        .next-button {
+            background-color: #d9534f;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            display: none; /* Initially hidden */
+        }
+
+        .next-button.disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Parking Management System</h1>
+        </header>
+
+        <div class="legend">
+            <div><span class="available"></span> Available</div>
+            <div><span class="booked"></span> Booked</div>
+            <div><span class="ladies"></span> Ladies</div>
+            <div><span class="concession"></span> Concession</div>
+        </div>
+
+        <div class="slot-section">
+            <div class="slot-grid">
+                <div class="slot available" onclick="toggleBooking(this)">1</div>
+                <div class="slot available" onclick="toggleBooking(this)">2</div>
+                <div class="slot available" onclick="toggleBooking(this)">3</div>
+                <div class="slot ladies" onclick="toggleBooking(this)">4</div>
+                <div class="slot ladies" onclick="toggleBooking(this)">5</div>
+                <div class="slot booked" onclick="toggleBooking(this)">6</div>
+                <div class="slot available" onclick="toggleBooking(this)">7</div>
+                <div class="slot available" onclick="toggleBooking(this)">8</div>
+                <div class="slot ladies" onclick="toggleBooking(this)">9</div>
+                <div class="slot ladies" onclick="toggleBooking(this)">10</div>
+                <div class="slot available" onclick="toggleBooking(this)">11</div>
+                <div class="slot available" onclick="toggleBooking(this)">12</div>
+                <div class="slot available" onclick="toggleBooking(this)">13</div>
+                <div class="slot available" onclick="toggleBooking(this)">14</div>
+                <div class="slot booked" onclick="toggleBooking(this)">15</div>
+                <div class="slot available" onclick="toggleBooking(this)">16</div>
+                <div class="slot available" onclick="toggleBooking(this)">17</div>
+                <div class="slot available" onclick="toggleBooking(this)">18</div>
+                <div class="slot concession" onclick="toggleBooking(this)">19</div>
+                <div class="slot concession" onclick="toggleBooking(this)">20</div>
+            </div>
+        </div>
+
+        <button id="nextButton" class="next-button disabled" onclick="goToPayment()">Next</button>
+    </div>
+
+    <script>
+        function toggleBooking(slot) {
+            if (slot.classList.contains("available")) {
+                slot.classList.remove("available");
+                slot.classList.add("booked");
+                slot.style.color = "#fff";
+                enableNextButton();
+            } else if (slot.classList.contains("booked")) {
+                slot.classList.remove("booked");
+                slot.classList.add("available");
+                slot.style.color = "#000";
+                checkIfAnyBooked();
+            }
+        }
+
+        function enableNextButton() {
+            var nextButton = document.getElementById("nextButton");
+            nextButton.classList.remove("disabled");
+            nextButton.style.display = "block";
+        }
+
+        function checkIfAnyBooked() {
+            var slots = document.querySelectorAll(".slot");
+            var nextButton = document.getElementById("nextButton");
+            var anyBooked = Array.from(slots).some(slot => slot.classList.contains("booked"));
+            
+            if (anyBooked) {
+                nextButton.classList.remove("disabled");
+                nextButton.style.display = "block";
+            } else {
+                nextButton.classList.add("disabled");
+                nextButton.style.display = "none";
+            }
+        }
+
+        function goToPayment() {
+            var nextButton = document.getElementById("nextButton");
+            if (!nextButton.classList.contains("disabled")) {
+                window.location.href = "payment.html";
+            }
+        }
+    </script>
+</body>
+</html>

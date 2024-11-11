@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .payment-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            color: #d9534f;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .btn {
+            background-color: #d9534f;
+            color: #fff;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Payment</h2>
+        <div class="form-group">
+            <label for="plotNo">Plot No:</label>
+            <input type="text" id="plotNo" placeholder="Enter Plot Number">
+        </div>
+        
+        <div class="form-group">
+            <label for="vehicleNo">Vehicle No:</label>
+            <input type="text" id="vehicleNo" placeholder="Enter Vehicle Number">
+        </div>
+
+        <div class="form-group">
+            <label for="vehicleType">Vehicle Type:</label>
+            <select id="vehicleType">
+                <option value="">Select Vehicle Type</option>
+                <option value="2wheeler">2-Wheeler</option>
+                <option value="4wheeler">4-Wheeler</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="hours">Hours to Park:</label>
+            <input type="number" id="hours" placeholder="Enter Hours">
+        </div>
+        
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="number" id="amount" placeholder="Enter Amount" readonly>
+        </div>
+
+        <div class="form-group">
+            <label>Payment Type:</label>
+            <div class="payment-options">
+                <label class="payment-option">
+                    <input type="radio" name="paymentType" value="Paytm"> Paytm
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="paymentType" value="PhonePe"> PhonePe
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="paymentType" value="GPay"> GPay
+                </label>
+                <label class="payment-option">
+                    <input type="radio" name="paymentType" value="Debit Card"> Debit Card
+                </label>
+            </div>
+        </div>
+
+        <button class="btn" id="doneButton" disabled onclick="showSuccessMessage()">Done</button>
+
+        <p class="success-message" id="successMessage">Payment Successful!</p>
+    </div>
+
+    <script>
+        const plotNoInput = document.getElementById('plotNo');
+        const vehicleNoInput = document.getElementById('vehicleNo');
+        const vehicleTypeInput = document.getElementById('vehicleType');
+        const hoursInput = document.getElementById('hours');
+        const amountInput = document.getElementById('amount');
+        const doneButton = document.getElementById('doneButton');
+        const successMessage = document.getElementById('successMessage');
+        const paymentOptions = document.querySelectorAll('input[name="paymentType"]');
+
+        // Enable Done button when all fields are filled
+        function checkFormCompletion() {
+            const isFormComplete = plotNoInput.value && vehicleNoInput.value && vehicleTypeInput.value && hoursInput.value && amountInput.value && Array.from(paymentOptions).some(option => option.checked);
+            doneButton.disabled = !isFormComplete;
+        }
+
+        plotNoInput.addEventListener('input', checkFormCompletion);
+        vehicleNoInput.addEventListener('input', checkFormCompletion);
+        vehicleTypeInput.addEventListener('change', checkFormCompletion);
+        hoursInput.addEventListener('input', () => {
+            const hourlyRate = vehicleTypeInput.value === '2wheeler' ? 15 : 25;  // Set different rates for 2-wheeler and 4-wheeler
+            amountInput.value = hoursInput.value * hourlyRate;
+            checkFormCompletion();
+        });
+        paymentOptions.forEach(option => option.addEventListener('change', checkFormCompletion));
+
+        // Show success message upon clicking Done
+        function showSuccessMessage() {
+            successMessage.style.display = 'block';
+            doneButton.disabled = true;
+        }
+    </script>
+</body>
+</html>

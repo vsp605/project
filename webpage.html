@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Management</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f3f3ff;
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: #5b47cc;
+        }
+
+        header nav {
+            position: relative;
+        }
+
+        /* Menu icon */
+        header nav .menu-icon {
+            display: none;
+            font-size: 24px;
+            color: #5b47cc;
+            cursor: pointer;
+        }
+
+        /* Main menu styling */
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: #5b47cc;
+            font-weight: bold;
+        }
+
+        /* Responsive menu for smaller screens */
+        @media (max-width: 768px) {
+            header nav ul {
+                display: none; /* Hide the menu initially */
+                position: absolute;
+                top: 40px;
+                right: 0;
+                background-color: #f3f3ff;
+                padding: 10px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            header nav .menu-icon {
+                display: block; /* Show the menu icon on mobile */
+            }
+
+            header nav ul.active {
+                display: flex; /* Show the menu when icon is clicked */
+            }
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        main h2 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .parking-area {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .parking-area h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .parking-area .region {
+            display: inline-block;
+            background-color: #e0e0e0;
+            color: #555;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .parking-area .subdivision {
+            font-size: 12px;
+            color: #777;
+            margin: 10px 0;
+        }
+
+        .parking-area a {
+            text-decoration: none;
+            color: #5b47cc;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Parking Management</h1>
+        <nav>
+            <span class="menu-icon" onclick="toggleMenu()">☰</span>
+            <ul id="menu">
+                <li><a href="webpage.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="priceing.html">Pricing</a></li>
+                <li><a href="guidlines.html">Guidelines</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Area-wise parking spaces</h2>
+        <div class="grid-container">
+            <div class="parking-area">
+                <h3>DMART</h3>
+                <span class="region">East</span>
+                <p class="subdivision">Sub division > BGK</p>
+                <a href="slot.html">View parking spaces in Panchamuki Anjaneya Temple BGK</a>
+            </div>
+
+            <div class="parking-area">
+                <h3>CHANDAN THEATER</h3>
+                <span class="region">North East</span>
+                <p class="subdivision">Sub division > Nava Nagar</p>
+                <a href="slot.html">View parking spaces in Sector 25 Nava Nagar BGK</a>
+            </div>
+
+            <div class="parking-area">
+                <h3>KUMARESHWARA HOSPITAL</h3>
+                <span class="region">West</span>
+                <p class="subdivision">Sub division > BGK</p>
+                <a href="slot.html">View parking spaces in A P M C Yard BGK</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Toggle menu for mobile view
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.classList.toggle("active");
+        }
+    </script>
+</body>
+</html>

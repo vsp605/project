@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Management</title>
+    <style>
+        /* Reset margins and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Main section */
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Container for car image and parking icon */
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        /* Parking icon styling */
+        .parking-icon {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px; /* Adjust size as needed */
+            height: auto;
+        }
+
+        /* Car image styling */
+        .car-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .title {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            color: gray;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .powered-by {
+            color: #ff6b01;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        /* Buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main section -->
+    <div class="main">
+        <!-- Image container with parking icon and car image -->
+        <div class="image-container">
+            <img src="symbol.jpg" alt="Parking Icon" class="parking-icon">
+            <img src="car.jpg" alt="Car Image" class="car-image">
+        </div>
+        
+        <!-- Title and subtitle -->
+        <div class="title">Parking Management System</div>
+        <div class="subtitle">Web Based Parking Management System</div>
+        <div class="powered-by">Powered By BEC Students</div>
+
+        <!-- Buttons -->
+        <div class="button-container">
+            <a href="login.html">LOGIN</a>
+            <a href="register.html">REGISTER</a>
+        </div>
+    </div>
+</body>
+</html>
